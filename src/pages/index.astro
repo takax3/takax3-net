@@ -21,6 +21,7 @@ const socialLinks = [
     label: 'GitHub',
     serviceName: 'GitHub',
     icon: '/icons/github.svg',
+    darkIcon: '/icons/github_white.svg',
     account: 'taka.',
     url: 'https://github.com/takax3',
   }
@@ -63,15 +64,31 @@ const socialLinks = [
             {
               'url' in link ? (
                 <a href={link.url} target="_blank" rel="noreferrer" aria-label={link.label}>
-                  <span class:list={['social-link-row__icon-frame', link.iconVariant === 'dark' && 'social-link-row__icon-frame--dark']}>
-                    <img class="social-link-row__icon" src={link.icon} alt="" aria-hidden="true" />
+                  <span class:list={[
+                    'social-link-row__icon-frame',
+                    link.iconVariant === 'dark' && 'social-link-row__icon-frame--dark'
+                  ]}>
+                    <picture>
+                      {'darkIcon' in link && (
+                        <source srcset={link.darkIcon} media="(prefers-color-scheme: dark)" />
+                      )}
+                      <img class="social-link-row__icon" src={link.icon} alt="" aria-hidden="true" />
+                    </picture>
                   </span>
                   <span>{link.serviceName}: {link.account}</span>
                 </a>
               ) : (
                 <span aria-label={link.label}>
-                  <span class:list={['social-link-row__icon-frame', link.iconVariant === 'dark' && 'social-link-row__icon-frame--dark']}>
-                    <img class="social-link-row__icon" src={link.icon} alt="" aria-hidden="true" />
+                  <span class:list={[
+                    'social-link-row__icon-frame',
+                    link.iconVariant === 'dark' && 'social-link-row__icon-frame--dark'
+                  ]}>
+                    <picture>
+                      {'darkIcon' in link && (
+                        <source srcset={link.darkIcon} media="(prefers-color-scheme: dark)" />
+                      )}
+                      <img class="social-link-row__icon" src={link.icon} alt="" aria-hidden="true" />
+                    </picture>
                   </span>
                   <span>{link.serviceName}: {link.account}</span>
                 </span>

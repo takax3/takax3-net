@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --color-bg: #fafafa;
   --color-surface: #ffffff;
   --color-text: #1f2933;
@@ -7,6 +7,9 @@
   --color-border: #d8dee4;
   --color-link: #0f766e;
   --color-link-hover: #115e59;
+  --color-code-bg: #f3f4f6;
+  --color-code-text: #1f2933;
+  --shadow-menu: 0 10px 24px rgb(31 41 51 / 12%);
   --content-width: 880px;
   font-family:
     system-ui,
@@ -14,6 +17,21 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #111827;
+    --color-surface: #1f2937;
+    --color-text: #e5e7eb;
+    --color-muted: #a7b0bf;
+    --color-border: #374151;
+    --color-link: #5eead4;
+    --color-link-hover: #99f6e4;
+    --color-code-bg: #0f172a;
+    --color-code-text: #e5e7eb;
+    --shadow-menu: 0 12px 28px rgb(0 0 0 / 36%);
+  }
 }
 
 * {
@@ -26,6 +44,7 @@ html {
 
 body {
   margin: 0;
+  background: var(--color-bg);
   color: var(--color-text);
   line-height: 1.75;
 }
@@ -197,12 +216,19 @@ img {
   list-style: none;
 }
 
+.social-link-row li {
+  display: flex;
+  min-height: 1.75rem;
+}
+
 .social-link-row a,
 .social-link-row span[aria-label] {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  min-height: 1.75rem;
   color: var(--color-text);
+  line-height: 1.4;
   text-decoration: none;
 }
 
@@ -219,6 +245,7 @@ img {
 }
 
 .social-link-row__icon-frame--dark {
+  border: 1px solid transparent;
   border-radius: 3px;
   background: #000000;
 }
@@ -226,6 +253,13 @@ img {
 .social-link-row__icon-frame--dark .social-link-row__icon {
   width: 0.9rem;
   height: 0.9rem;
+}
+
+.social-link-row__icon-frame picture {
+  display: inline-grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 .social-link-row__icon {
@@ -285,8 +319,17 @@ img {
 
 .prose pre {
   overflow-x: auto;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
   padding: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .social-link-row__icon-frame--dark {
+    border-color: var(--color-border);
+  }
 }
 
 @media (max-width: 720px) {
@@ -324,7 +367,7 @@ img {
     border: 1px solid var(--color-border);
     border-radius: 8px;
     background: var(--color-surface);
-    box-shadow: 0 10px 24px rgb(31 41 51 / 12%);
+    box-shadow: var(--shadow-menu);
     padding: 0.5rem;
   }
 
