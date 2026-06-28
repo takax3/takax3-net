@@ -32,6 +32,12 @@ const footerLinks = [
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1"
+    />
     <title>{pageTitle}</title>
   </head>
   <body>
@@ -39,7 +45,16 @@ const footerLinks = [
       <header class="site-header">
         <div class="site-header__inner">
           <a class="site-title" href="/">takax3-net</a>
-          <nav class="site-nav" aria-label="Main navigation">
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-label="メニューを開く"
+            aria-controls="site-nav"
+            aria-expanded="false"
+          >
+            <span class="material-symbols-rounded" aria-hidden="true">menu</span>
+          </button>
+          <nav id="site-nav" class="site-nav" aria-label="Main navigation">
             <a href="/">Home</a>
             <a href="/about/">About</a>
             <a href="/projects/">Projects</a>
@@ -76,5 +91,29 @@ const footerLinks = [
         </div>
       </footer>
     </div>
+    <script>
+      const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const siteNav = document.querySelector<HTMLElement>('#site-nav');
+
+      if (menuButton && siteNav) {
+        const closeMenu = () => {
+          menuButton.setAttribute('aria-expanded', 'false');
+          menuButton.setAttribute('aria-label', 'メニューを開く');
+          siteNav.dataset.open = 'false';
+        };
+
+        menuButton.addEventListener('click', () => {
+          const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+
+          menuButton.setAttribute('aria-expanded', String(!isOpen));
+          menuButton.setAttribute('aria-label', isOpen ? 'メニューを開く' : 'メニューを閉じる');
+          siteNav.dataset.open = String(!isOpen);
+        });
+
+        siteNav.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', closeMenu);
+        });
+      }
+    </script>
   </body>
 </html>

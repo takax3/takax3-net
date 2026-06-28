@@ -48,6 +48,7 @@ npm run preview
 - 既存のクラスやレイアウトに合わせる
 - 過度な装飾やアニメーションは追加しない
 - スマホ表示で崩れないことを優先する
+- UIアイコンは、Google Fonts の Material Symbols を優先して使用する
 - 外部サービスの公式アイコンは、可能な限り改変せず `public/icons/` から参照する
 
 ## Cloudflare Pages
