@@ -1,0 +1,32 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+type Props = {
+  title: string;
+  description: string;
+  pubDate?: Date;
+  updatedDate?: Date;
+};
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('ja-JP', { dateStyle: 'medium' }).format(date);
+---
+
+<BaseLayout title={title} description={description}>
+  <article class="prose">
+    <header>
+      <h1>{title}</h1>
+      <p>{description}</p>
+      {
+        pubDate && (
+          <p class="item-meta">
+            公開日: {formatDate(pubDate)}
+            {updatedDate ? ` / 更新日: ${formatDate(updatedDate)}` : ''}
+          </p>
+        )
+      }
+    </header>
+    <slot />
+  </article>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<BaseLayout title="Projects" description="実績とプロジェクト一覧">
+  <section>
+    <h1>Projects</h1>
+    <p>実績、検証基盤、個人開発プロジェクトをまとめます。</p>
+
+    <ul class="item-list">
+      {
+        projects.map((project) => (
+          <li class="item-card">
+            <article>
+              <h2><a href={`/projects/${project.id}/`}>{project.data.title}</a></h2>
+              <p class="item-meta">Status: {project.data.status}</p>
+              <p>{project.data.description}</p>
+              {project.data.techStack.length > 0 && (
+                <ul class="tag-list" aria-label="Tech stack">
+                  {project.data.techStack.map((tech) => <li>{tech}</li>)}
+                </ul>
+              )}
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

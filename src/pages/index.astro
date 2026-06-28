@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const socialLinks = [
+  {
+    label: 'X',
+    serviceName: 'X（旧Twitter）',
+    icon: '/icons/x.svg',
+    iconVariant: 'dark',
+    account: '@takax3_M',
+    url: 'https://x.com/takax3_M',
+  },
+  {
+    label: 'Discord',
+    serviceName: 'Discord',
+    icon: '/icons/discord.svg',
+    account: 'taka.',
+    url: 'https://discordapp.com/users/219818588674981888',
+  },
+  {
+    label: 'GitHub',
+    serviceName: 'GitHub',
+    icon: '/icons/github.svg',
+    account: 'taka.',
+    url: 'https://github.com/takax3',
+  }
+];
+---
+
+<BaseLayout title="takax3-net" description="ポートフォリオ兼技術ブログ">
+  <section class="hero">
+    <h1>takax3-net</h1>
+    <p>
+      個人の活動、開発したプロジェクト、技術ブログをまとめるためのサイトです。
+      文章や実績はこれから少しずつ整理していきます。
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Contents</h2>
+    <div class="link-grid">
+      <article class="item-card">
+        <h3><a href="/about/">About</a></h3>
+        <p>自己紹介、関心領域、活動の概要をまとめます。</p>
+      </article>
+      <article class="item-card">
+        <h3><a href="/projects/">Projects</a></h3>
+        <p>作ったもの、検証したもの、運用しているものを整理します。</p>
+      </article>
+      <article class="item-card">
+        <h3><a href="/blog/">Blog</a></h3>
+        <p>技術メモ、開発ログ、学んだことをMarkdown/MDXで蓄積します。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Links</h2>
+    <ul class="social-link-row" aria-label="External links">
+      {
+        socialLinks.map((link) => (
+          <li>
+            {
+              'url' in link ? (
+                <a href={link.url} target="_blank" rel="noreferrer" aria-label={link.label}>
+                  <span class:list={['social-link-row__icon-frame', link.iconVariant === 'dark' && 'social-link-row__icon-frame--dark']}>
+                    <img class="social-link-row__icon" src={link.icon} alt="" aria-hidden="true" />
+                  </span>
+                  <span>{link.serviceName}: {link.account}</span>
+                </a>
+              ) : (
+                <span aria-label={link.label}>
+                  <span class:list={['social-link-row__icon-frame', link.iconVariant === 'dark' && 'social-link-row__icon-frame--dark']}>
+                    <img class="social-link-row__icon" src={link.icon} alt="" aria-hidden="true" />
+                  </span>
+                  <span>{link.serviceName}: {link.account}</span>
+                </span>
+              )
+            }
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>

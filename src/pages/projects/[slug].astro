@@ -1,0 +1,41 @@
+---
+import { getCollection, render } from 'astro:content';
+import MarkdownLayout from '../../layouts/MarkdownLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<MarkdownLayout
+  title={project.data.title}
+  description={project.data.description}
+  pubDate={project.data.pubDate}
+>
+  {
+    project.data.techStack.length > 0 && (
+      <ul class="tag-list" aria-label="Tech stack">
+        {project.data.techStack.map((tech) => <li>{tech}</li>)}
+      </ul>
+    )
+  }
+  <p class="item-meta">Status: {project.data.status}</p>
+  {
+    project.data.links && project.data.links.length > 0 && (
+      <ul>
+        {project.data.links.map((link) => (
+          <li><a href={link.url}>{link.label}</a></li>
+        ))}
+      </ul>
+    )
+  }
+  <Content />
+</MarkdownLayout>

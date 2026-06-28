@@ -1,0 +1,80 @@
+---
+import '../styles/global.css';
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const {
+  title = 'takax3-net',
+  description = 'ポートフォリオ兼技術ブログ'
+} = Astro.props;
+
+const pageTitle = title === 'takax3-net' ? title : `${title} | takax3-net`;
+
+const footerLinks = [
+  // URLが決まったものから `url` を追加してください。
+  { title: 'X' },
+  { title: 'Discord' },
+  { title: 'GitHub' }
+];
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a class="site-title" href="/">takax3-net</a>
+          <nav class="site-nav" aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/projects/">Projects</a>
+            <a href="/blog/">Blog</a>
+          </nav>
+        </div>
+      </header>
+      <main class="content">
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <img
+          class="footer-peek"
+          src="/images/footer-peek.png"
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+        />
+        <div class="site-footer__inner">
+          <small>&copy; {new Date().getFullYear()} takax3-net</small>
+          <nav class="footer-links" aria-label="External links">
+            {
+              footerLinks.map((link) =>
+                'url' in link ? (
+                  <a href={link.url} target="_blank" rel="noreferrer">
+                    {link.title}
+                  </a>
+                ) : (
+                  <span>{link.title}</span>
+                )
+              )
+            }
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
