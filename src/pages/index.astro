@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const socialLinks = [
@@ -26,37 +27,31 @@ const socialLinks = [
     url: 'https://github.com/takax3',
   }
 ];
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const featuredProject = projects[0];
+
+const posts = (await getCollection('blog', ({ data }) => data.draft !== true))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
 ---
 
-<BaseLayout title="takax3-net" description="ポートフォリオ兼技術ブログ">
-  <section class="hero">
-    <h1>takax3-net</h1>
-    <p>
-      個人の活動、開発したプロジェクト、技術ブログをまとめるためのサイトです。
-      文章や実績はこれから少しずつ整理していきます。
-    </p>
-  </section>
-
-  <section class="section">
-    <h2>Contents</h2>
-    <div class="link-grid">
-      <article class="item-card">
-        <h3><a href="/about/">About</a></h3>
-        <p>自己紹介、関心領域、活動の概要をまとめます。</p>
-      </article>
-      <article class="item-card">
-        <h3><a href="/projects/">Projects</a></h3>
-        <p>作ったもの、検証したもの、運用しているものを整理します。</p>
-      </article>
-      <article class="item-card">
-        <h3><a href="/blog/">Blog</a></h3>
-        <p>技術メモ、開発ログ、学んだことをMarkdown/MDXで蓄積します。</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Links</h2>
+<BaseLayout title="恋ヶ窪タカノの実装室" description="恋ヶ窪タカノ（taka）のポートフォリオ兼技術ブログ">
+  <section class="hero home-hero">
+    <div class="home-hero__body">
+      <h1>恋ヶ窪タカノ</h1>
+      <p class="home-hero__aliases">taka / たかにゃん</p>
+      <p class="home-hero__tagline">あいまいなアイデアを、動く仕組みに。</p>
+      <p class="home-hero__intro">AI Bot、Web、自動化ツールなどを作って試しています。</p>
     <ul class="social-link-row" aria-label="External links">
       {
         socialLinks.map((link) => (
@@ -98,5 +93,221 @@ const socialLinks = [
         ))
       }
     </ul>
+    </div>
+    <div class="home-hero__visual">
+      <img
+        src="/images/hero-character.webp"
+        alt="takaのアバター"
+        width="1106"
+        height="1200"
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  {
+    featuredProject && (
+      <section class="section">
+        <h2>Featured Project</h2>
+        <article class="item-card featured-project-card">
+          <div class="featured-project-card__media">
+            <img
+              src="/images/dojionee-chat.webp"
+              width="1274"
+              height="349"
+              loading="lazy"
+              alt={`${featuredProject.data.title}のスクリーンショット`}
+            />
+          </div>
+          <div class="featured-project-card__body">
+            <div class="featured-project-card__header">
+              <h3>
+                <a href={`/projects/${featuredProject.id}/`}>{featuredProject.data.title}</a>
+              </h3>
+              <span class="status-badge">{featuredProject.data.status}</span>
+            </div>
+            <p>{featuredProject.data.description}</p>
+            {featuredProject.data.techStack.length > 0 && (
+              <ul class="tag-list" aria-label="Tech stack">
+                {featuredProject.data.techStack.map((tech) => <li>{tech}</li>)}
+              </ul>
+            )}
+          </div>
+        </article>
+      </section>
+    )
+  }
+
+  <section class="section">
+    <div class="section-heading">
+      <h2>Latest Posts</h2>
+      <a href="/blog/">すべて見る</a>
+    </div>
+    {
+      posts.length > 0 ? (
+        <ul class="item-list">
+          {posts.map((post) => (
+            <li class="item-card">
+              <article>
+                <h3><a href={`/blog/${post.id}/`}>{post.data.title}</a></h3>
+                <p class="item-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                </p>
+                <p>{post.data.description}</p>
+              </article>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>まだ記事がありません。</p>
+      )
+    }
   </section>
 </BaseLayout>
+
+<style>
+  .home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 340px);
+    align-items: center;
+    gap: clamp(2rem, 6vw, 4rem);
+    padding-block: clamp(1rem, 4vw, 2.75rem) 3rem;
+  }
+
+  .home-hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 8vw, 3.5rem);
+    line-height: 0.95;
+  }
+
+  .home-hero__aliases {
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .home-hero__tagline {
+    margin: 1.4rem 0 0;
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-size: clamp(1.45rem, 5vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .home-hero__intro {
+    margin: 1rem 0 0;
+  }
+
+  .home-hero .social-link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin: 1.5rem 0 0;
+  }
+
+  .home-hero .social-link-row a {
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+    padding: 0.35rem 0.75rem 0.35rem 0.55rem;
+  }
+
+  .home-hero__visual {
+    display: grid;
+    justify-items: center;
+  }
+
+  .home-hero__visual img {
+    width: min(100%, 340px);
+    filter: drop-shadow(0 14px 24px rgb(42 42 51 / 14%));
+  }
+
+  .featured-project-card {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .featured-project-card__media {
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--color-bg);
+  }
+
+  .featured-project-card__media img {
+    display: block;
+    width: 100%;
+  }
+
+  .featured-project-card__body {
+    padding: 0 0.25rem 0.25rem;
+  }
+
+  .featured-project-card__header,
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .featured-project-card h3,
+  .section-heading h2 {
+    margin: 0;
+  }
+
+  .status-badge {
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: var(--color-status-bg);
+    color: var(--color-status-text);
+    padding: 0.2rem 0.7rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  .section-heading {
+    margin-bottom: 1rem;
+  }
+
+  .section-heading a {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .home-hero__visual img {
+      filter: drop-shadow(0 16px 28px rgb(0 0 0 / 34%));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .home-hero {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .home-hero .social-link-row {
+      justify-content: center;
+    }
+
+    .home-hero__visual {
+      order: -1;
+    }
+
+    .home-hero__visual img {
+      width: min(72vw, 260px);
+    }
+
+    .featured-project-card__header,
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>

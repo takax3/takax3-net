@@ -1,17 +1,20 @@
 ---
-title: "Dojionee"
-description: "Discord上で動作するAI Botの仮実績です。"
-pubDate: 2026-06-28
+title: "DojiOnee"
+description: "Discord上で動作するAI Bot。LLMの性能をカバーするため、あえて「ドジっ娘お姉ちゃん」というキャラ付けでユーザに親しんでもらおうとした。"
+pubDate: 2026-05-12
 techStack:
   - Python
   - Docker
-  - AI Bot
+  - LLM(OpenAI)
   - Discord
 status: "Prototype"
-links: []
+links:
+  - label: "DojiOnee サービスページ"
+    url: "https://dojionee.takax3.net/"
 ---
 
-Dojionee は、Discord 上で利用する AI Bot の仮プロジェクトです。
+DojiOnee は、Discord 上で利用できるAI Bot。
 
-Python と Docker を中心に、Discord のメッセージを受け取り、AIによる応答を返す構成を想定しています。
-現時点ではポートフォリオ掲載用の仮説明です。
+コンセプトは「ドジっ娘お姉ちゃん」。  
+現代のLLMはどうしても会話のコンテキストを完全に汲むことができない、最新の知識やコアな知識に弱い、等の課題がある。  
+そこで、あえてキャラクター性として含めることにより、ポンコツであることをユーザに不満に思わせないことを目論んだ。

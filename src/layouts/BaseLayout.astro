@@ -7,11 +7,12 @@ type Props = {
 };
 
 const {
-  title = 'takax3-net',
-  description = 'ポートフォリオ兼技術ブログ'
+  title = '恋ヶ窪タカノの実装室',
+  description = '恋ヶ窪タカノ（taka）のポートフォリオ兼技術ブログ'
 } = Astro.props;
 
-const pageTitle = title === 'takax3-net' ? title : `${title} | takax3-net`;
+const siteName = '恋ヶ窪タカノの実装室';
+const pageTitle = title === siteName ? title : `${title} | ${siteName}`;
 
 const footerLinks = [
   // URLが決まったものから `url` を追加してください。
@@ -27,8 +28,8 @@ const footerLinks = [
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#111827" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#FBF9F4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#10182A" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -40,13 +41,17 @@ const footerLinks = [
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@0..1"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
+    />
     <title>{pageTitle}</title>
   </head>
   <body>
     <div class="site-shell">
       <header class="site-header">
         <div class="site-header__inner">
-          <a class="site-title" href="/">takax3-net</a>
+          <a class="site-title" href="/">恋ヶ窪タカノの実装室</a>
           <button
             class="menu-toggle"
             type="button"
@@ -73,10 +78,11 @@ const footerLinks = [
           src="/images/footer-peek.png"
           alt=""
           aria-hidden="true"
-          loading="lazy"
+          width="312"
+          height="312"
         />
         <div class="site-footer__inner">
-          <small>&copy; {new Date().getFullYear()} takax3-net</small>
+          <small>&copy; {new Date().getFullYear()} 恋ヶ窪タカノの実装室</small>
           <nav class="footer-links" aria-label="External links">
             {
               footerLinks.map((link) =>

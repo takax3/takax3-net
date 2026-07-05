@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "恋ヶ窪タカノの実装室",
+  "short_name": "タカノ実装室",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

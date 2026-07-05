@@ -1,36 +1,45 @@
 :root {
   color-scheme: light dark;
-  --color-bg: #fafafa;
+  --font-heading: "M PLUS Rounded 1c", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Zen Kaku Gothic New", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --color-bg: #fbf9f4;
   --color-surface: #ffffff;
-  --color-text: #1f2933;
-  --color-muted: #667085;
-  --color-border: #d8dee4;
-  --color-link: #0f766e;
-  --color-link-hover: #115e59;
-  --color-code-bg: #f3f4f6;
-  --color-code-text: #1f2933;
-  --shadow-menu: 0 10px 24px rgb(31 41 51 / 12%);
+  --color-text: #2a2a33;
+  --color-muted: #756f66;
+  --color-border: #e4e0d6;
+  --color-link: #3b6fd4;
+  --color-link-hover: #2d59b0;
+  --color-code-bg: #f1ece2;
+  --color-code-text: #2a2a33;
+  --color-tag-bg: #e3ecfb;
+  --color-tag-text: #2d59b0;
+  --color-status-bg: #fff2cf;
+  --color-status-text: #735300;
+  --shadow-menu: 0 10px 24px rgb(42 42 51 / 12%);
+  --shadow-card: 0 2px 8px rgb(0 0 0 / 5%);
+  --shadow-card-hover: 0 8px 20px rgb(42 42 51 / 10%);
   --content-width: 880px;
-  font-family:
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  font-family: var(--font-body);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #111827;
-    --color-surface: #1f2937;
-    --color-text: #e5e7eb;
-    --color-muted: #a7b0bf;
-    --color-border: #374151;
-    --color-link: #5eead4;
-    --color-link-hover: #99f6e4;
-    --color-code-bg: #0f172a;
-    --color-code-text: #e5e7eb;
+    --color-bg: #10182a;
+    --color-surface: #1a2338;
+    --color-text: #e8eaf2;
+    --color-muted: #b5ad9f;
+    --color-border: #2e3a55;
+    --color-link: #8fb0f5;
+    --color-link-hover: #b4cbfa;
+    --color-code-bg: #0b1220;
+    --color-code-text: #edf0f8;
+    --color-tag-bg: #213b70;
+    --color-tag-text: #b4cbfa;
+    --color-status-bg: #3d321a;
+    --color-status-text: #ffe09a;
     --shadow-menu: 0 12px 28px rgb(0 0 0 / 36%);
+    --shadow-card: 0 2px 10px rgb(0 0 0 / 22%);
+    --shadow-card-hover: 0 10px 24px rgb(0 0 0 / 32%);
   }
 }
 
@@ -46,7 +55,19 @@ body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
+  font-family: var(--font-body);
   line-height: 1.75;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
 }
 
 a {
@@ -76,7 +97,8 @@ img {
   top: 0;
   z-index: 20;
   border-bottom: 1px solid var(--color-border);
-  background: var(--color-surface);
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
+  backdrop-filter: blur(12px);
 }
 
 .site-header__inner,
@@ -277,9 +299,20 @@ img {
 
 .item-card {
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: 16px;
   background: var(--color-surface);
+  box-shadow: var(--shadow-card);
   padding: 1.25rem;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.item-card:hover {
+  border-color: color-mix(in srgb, var(--color-link) 32%, var(--color-border));
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
 }
 
 .item-card h2,
@@ -303,10 +336,12 @@ img {
 }
 
 .tag-list li {
-  border: 1px solid var(--color-border);
+  border: 1px solid transparent;
   border-radius: 999px;
-  padding: 0.1rem 0.55rem;
-  background: var(--color-bg);
+  background: var(--color-tag-bg);
+  color: var(--color-tag-text);
+  padding: 0.12rem 0.65rem;
+  font-weight: 500;
 }
 
 .prose {
@@ -332,6 +367,16 @@ img {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .item-card {
+    transition: none;
+  }
+
+  .item-card:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 720px) {
   .site-shell {
     --footer-peek-size: 88px;
@@ -340,6 +385,11 @@ img {
   .site-header__inner {
     position: relative;
     align-items: center;
+  }
+
+  .site-title {
+    font-size: 0.95rem;
+    white-space: nowrap;
   }
 
   .menu-toggle {
@@ -386,7 +436,11 @@ img {
   }
 
   .content {
-    padding-block: 2rem calc(3rem + var(--footer-peek-size));
+    padding-block: 2rem 3rem;
+  }
+
+  .site-footer {
+    position: relative;
   }
 
   .site-footer__inner {
