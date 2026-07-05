@@ -23,6 +23,7 @@
 | T-007 | P2 | Todo | Phase 4: OGP 画像・メタタグ整備 | OGP 画像と og:/twitter: メタが全ページに出る | メタタグ検証ツール | |
 | T-008 | P3 | Todo | Phase 4: footer-peek のスクロール連動アニメーション | reduced-motion 環境では動かない | dev サーバーで目視 | |
 | T-009 | P3 | Todo | RSS・sitemap の追加 | /rss.xml と /sitemap-index.xml が生成される | ビルド出力確認 | @astrojs/rss 追加は G4（人間ゲート） |
+| T-010 | P0 | Done | Google AdSense 所有権確認メタタグと ads.txt の追加 | 全ページ head に `google-adsense-account` メタタグが出て、`/ads.txt` が公開される | `npm run build` + `dist/index.html` / `dist/ads.txt` 確認 | 2026-07-05 対応。広告配信用 JavaScript は未導入 |
 
 ## 人間の判断待ち
 

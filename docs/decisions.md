@@ -14,3 +14,4 @@
 | 2026-07-05 | `.claude/` を .gitignore に追加 | 採用 | リポジトリは特定 AI ツールに依存させない。エージェント向け指示は agents.md に一本化 |
 | 2026-07-05 | ヒーロー画像の遅延読み込み | `loading="eager"`（ヒーロー）/ footer-peek は lazy なし | ファーストビュー画像は eager が正しい。footer-peek は docs/knowledge.md の lazy デッドロック問題により lazy を外した |
 | 2026-07-05 | footer-peek の衣装 | 現状維持（パーカー衣装のまま。ヒーローのジャケット衣装に揃えない） | 人間決定。差し替えの再提案はしない |
+| 2026-07-05 | Google AdSense 所有権確認 | メタタグ方式と ads.txt を採用（広告配信用 JavaScript は未導入） | ユーザー要望。まず所有権確認を可能にし、Auto ads や広告枠の追加は行わない |
