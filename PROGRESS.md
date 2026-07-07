@@ -25,6 +25,7 @@
 | T-009 | P3 | Todo | RSS・sitemap の追加 | /rss.xml と /sitemap-index.xml が生成される | ビルド出力確認 | @astrojs/rss 追加は G4（人間ゲート） |
 | T-010 | P0 | Done | Google AdSense 所有権確認メタタグと ads.txt の追加 | 全ページ head に `google-adsense-account` メタタグが出て、`/ads.txt` が公開される | `npm run build` + `dist/index.html` / `dist/ads.txt` 確認 | 2026-07-05 対応。広告配信用 JavaScript は未導入 |
 | T-011 | P0 | Done | プロジェクト記事3本追加（LLM Chat Bot / 読み上げ Bot / まめトレード）＋ rank 表示順制御 ＋ 詳細ページの heroImage 表示・一覧への導線 | 記事が公開され、DojiOnee が Featured に固定される | dev サーバー・ビルド出力で確認済み | 2026-07-07。本文は人間が編集済み |
+| T-012 | P1 | Done | プロジェクト記事追加: Usagi-Chat（VC 音声対話 Bot） | 記事が一覧・詳細に表示される | `npm run build` で確認済み | 2026-07-07。本文は人間が編集済み。他の workspace 候補は見送り（トレード系はまめトレードに集約） |
 
 ## 人間の判断待ち
 
