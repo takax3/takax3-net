@@ -28,8 +28,9 @@ const socialLinks = [
   }
 ];
 
+const rankOf = (p) => p.data.rank ?? Infinity;
 const projects = (await getCollection('projects')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => rankOf(a) - rankOf(b) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 const featuredProject = projects[0];
 
@@ -110,15 +111,17 @@ const formatDate = (date: Date) =>
       <section class="section">
         <h2>Featured Project</h2>
         <article class="item-card featured-project-card">
-          <div class="featured-project-card__media">
-            <img
-              src="/images/dojionee-chat.webp"
-              width="1274"
-              height="349"
-              loading="lazy"
-              alt={`${featuredProject.data.title}のスクリーンショット`}
-            />
-          </div>
+          {featuredProject.data.heroImage && (
+            <div class="featured-project-card__media">
+              <img
+                src={featuredProject.data.heroImage.src}
+                width={featuredProject.data.heroImage.width}
+                height={featuredProject.data.heroImage.height}
+                loading="lazy"
+                alt={featuredProject.data.heroImage.alt}
+              />
+            </div>
+          )}
           <div class="featured-project-card__body">
             <div class="featured-project-card__header">
               <h3>

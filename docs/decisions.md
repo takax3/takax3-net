@@ -15,3 +15,6 @@
 | 2026-07-05 | ヒーロー画像の遅延読み込み | `loading="eager"`（ヒーロー）/ footer-peek は lazy なし | ファーストビュー画像は eager が正しい。footer-peek は docs/knowledge.md の lazy デッドロック問題により lazy を外した |
 | 2026-07-05 | footer-peek の衣装 | 現状維持（パーカー衣装のまま。ヒーローのジャケット衣装に揃えない） | 人間決定。差し替えの再提案はしない |
 | 2026-07-05 | Google AdSense 所有権確認 | メタタグ方式と ads.txt を採用（広告配信用 JavaScript は未導入） | ユーザー要望。まず所有権確認を可能にし、Auto ads や広告枠の追加は行わない |
+| 2026-07-07 | プロジェクトの表示順 | `rank`（optional）昇順 → 同値・未設定は pubDate 降順。Featured Project はソート後の先頭 | 人間決定。DojiOnee に rank: 1 を付けて Featured 固定。推したい記事だけ rank を付ける運用 |
+| 2026-07-07 | status バッジの語彙 | 日本語に統一（運用中 / 休止中 / 研究中） | 人間が記事編集時に統一。T-004 の色分けはこの語彙をキーにする |
+| 2026-07-07 | プロジェクト詳細ページの heroImage | frontmatter の heroImage（src/alt/width/height）で表示。Featured カードも同じ heroImage を参照しハードコードを廃止 | T-003 の一部を前倒しで実装 |
