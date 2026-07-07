@@ -2,8 +2,9 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
+const rankOf = (p) => p.data.rank ?? Infinity;
 const projects = (await getCollection('projects')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  (a, b) => rankOf(a) - rankOf(b) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 

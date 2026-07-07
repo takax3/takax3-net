@@ -19,6 +19,15 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
+    rank: z.number().optional(),
+    heroImage: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+        width: z.number(),
+        height: z.number()
+      })
+      .optional(),
     techStack: z.array(z.string()).default([]),
     status: z.string(),
     links: z

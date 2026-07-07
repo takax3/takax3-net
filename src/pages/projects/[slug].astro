@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const heroImage = project.data.heroImage;
 ---
 
 <MarkdownLayout
@@ -20,6 +21,18 @@ const { Content } = await render(project);
   description={project.data.description}
   pubDate={project.data.pubDate}
 >
+  {
+    heroImage && (
+      <img
+        class="project-hero-image"
+        src={heroImage.src}
+        alt={heroImage.alt}
+        width={heroImage.width}
+        height={heroImage.height}
+        loading="eager"
+      />
+    )
+  }
   {
     project.data.techStack.length > 0 && (
       <ul class="tag-list" aria-label="Tech stack">
@@ -38,4 +51,13 @@ const { Content } = await render(project);
     )
   }
   <Content />
+  <p><a href="/projects/">← プロジェクト一覧へ</a></p>
 </MarkdownLayout>
+
+<style>
+  .project-hero-image {
+    display: block;
+    border-radius: 14px;
+    margin-block: 0 1.25rem;
+  }
+</style>
